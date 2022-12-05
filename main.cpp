@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include "minHeap.h"
 
 int main(int argc, char* argv[]){
     std::string input;
@@ -25,21 +26,24 @@ int main(int argc, char* argv[]){
     std::map<char, int> frequencies = {};
     char byte;
     while (input_file.get(byte)) {
-        if(frequencies.find(byte) == frequencies.end()){
-            frequencies[byte] = 1;
-        }else{
-            frequencies[byte]++;
-        }
+        frequencies[byte]++;
     }
 
     input_file.close();
 
-    // Display frequencies
+    MinHeap huffmanTree;
+
+    // Add frequencies to huffman tree
     for(auto it = frequencies.cbegin(); it != frequencies.cend(); ++it){
-        std::cout << it->first << " " << it->second << "\n";
+        HeapNode node = {it->first, it->second};
+        huffmanTree.insert(node);
     }
 
-    
+
+    while(!huffmanTree.empty()){
+        std::cout << huffmanTree.top() << std::endl;
+        huffmanTree.pop();
+    }
 
 
     return 0;

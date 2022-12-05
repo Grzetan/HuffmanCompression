@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 
 struct HeapNode{
     char c;
@@ -7,6 +8,10 @@ struct HeapNode{
 
     bool operator>(HeapNode& node) const;
     bool operator<(HeapNode& node) const;
+    friend std::ostream &operator<<(std::ostream &output, const HeapNode &D ) { 
+        output << D.c << ": " << D.freq;
+        return output;            
+    }
 };
 
 class MinHeap{
@@ -33,6 +38,9 @@ public:
 
     // Pop
     void pop();
+
+    // Is empty
+    bool empty();
 
     // Get top most elem
     HeapNode top();

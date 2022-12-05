@@ -24,25 +24,25 @@ void MinHeap::traverseDown(int i){
     int left = leftChild(i);
     int right = rightChild(i);
 
-    int largest = i;
+    int smallest = i;
 
-    if(left < arr.size() && arr[left] > arr[i]){
-        largest = left;
+    if(left < arr.size() && arr[left] < arr[i]){
+        smallest = left;
     }
     
-    if(right < arr.size() && arr[right] > arr[i]){
-        largest = right;
+    if(right < arr.size() && arr[right] < arr[i]){
+        smallest = right;
     }
 
-    if(largest != i){
-        std::swap(arr[i], arr[largest]);
-        traverseDown(largest);
+    if(smallest != i){
+        std::swap(arr[i], arr[smallest]);
+        traverseDown(smallest);
     }
 }
 
 void MinHeap::traverseUp(int i){
     int parent = parentNode(i);
-    if(arr[i] < arr[parent]){
+    if(i && arr[i] < arr[parent]){
         std::swap(arr[i], arr[parent]);
         traverseUp(parent);
     }
@@ -57,6 +57,10 @@ void MinHeap::pop(){
     arr[0] = arr.back();
     arr.pop_back();
     traverseDown(0);
+}
+
+bool MinHeap::empty(){
+    return arr.size() == 0;
 }
 
 HeapNode MinHeap::top(){
