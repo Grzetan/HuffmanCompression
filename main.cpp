@@ -4,6 +4,7 @@
 
 int main(int argc, char* argv[]){
     std::string input;
+    std::string output;
 
     for(int i=1; i<argc; i++){
         std::string val = argv[i];
@@ -12,7 +13,7 @@ int main(int argc, char* argv[]){
             input = argv[i+1];
         }else if(val == "-o"){
             if(i == argc-1) throw std::runtime_error("Output not provided");
-            std::cout << "Output: " << argv[i+1] << std::endl;
+            output = argv[i+1];
         }
     }
 
@@ -33,6 +34,12 @@ int main(int argc, char* argv[]){
 
     input_file.close();
 
+    // Display frequencies
+    for(auto it = frequencies.cbegin(); it != frequencies.cend(); ++it){
+        std::cout << it->first << " " << it->second << "\n";
+    }
+
+    
 
 
     return 0;
