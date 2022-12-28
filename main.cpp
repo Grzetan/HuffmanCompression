@@ -35,7 +35,6 @@ int main(int argc, char* argv[]){
 
     // Add frequencies to huffman tree
     for(auto it = frequencies.cbegin(); it != frequencies.cend(); ++it){
-        std::cout << it->second << std::endl;
         HeapNode node = {it->first, it->second};
         huffmanTree.insert(node);
     }

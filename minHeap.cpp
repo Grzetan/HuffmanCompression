@@ -38,7 +38,7 @@ void MinHeap::traverseDown(int i){
         smallest = left;
     }
     
-    if(right < arr.size() && arr[right] < arr[i]){
+    if(right < arr.size() && arr[right] < arr[smallest]){
         smallest = right;
     }
 
@@ -48,17 +48,15 @@ void MinHeap::traverseDown(int i){
     }
 }
 
-void MinHeap::traverseUp(int i){
-    int parent = parentNode(i);
-    if(i>0 && arr[i] < arr[parent]){
-        std::swap(arr[i], arr[parent]);
-        traverseUp(parent);
-    }
-}
-
 void MinHeap::insert(HeapNode node){
     arr.push_back(node);
-    traverseUp(arr.size() - 1);
+
+    int curr = arr.size() - 1;
+
+    while(curr > 0 && arr[parentNode(curr)] > arr[curr]){
+        std::swap(arr[parentNode(curr)], arr[curr]);
+        curr = parentNode(curr);
+    }
 }
 
 void MinHeap::pop(){
