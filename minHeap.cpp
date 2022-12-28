@@ -13,11 +13,19 @@ int MinHeap::parentNode(int i){
 }
 
 int MinHeap::leftChild(int i){
-    return 2*i + 1;
+    int child = 2*i + 1;
+    int res = (child < arr.size()) ? child : -1;
+    return res;
 }
 
 int MinHeap::rightChild(int i){
-    return 2*i + 2;
+    int child = 2*i + 2;
+    int res = (child < arr.size()) ? child : -1;
+    return res;
+}
+
+bool MinHeap::isLeaf(int i){
+    return rightChild(i) > -1 && leftChild(i) > -1;
 }
 
 void MinHeap::traverseDown(int i){
@@ -42,7 +50,7 @@ void MinHeap::traverseDown(int i){
 
 void MinHeap::traverseUp(int i){
     int parent = parentNode(i);
-    if(i && arr[i] < arr[parent]){
+    if(i>0 && arr[i] < arr[parent]){
         std::swap(arr[i], arr[parent]);
         traverseUp(parent);
     }
@@ -65,4 +73,23 @@ bool MinHeap::empty(){
 
 HeapNode MinHeap::top(){
     return arr[0];
+}
+
+void MinHeap::generateCodes(int root, std::vector<char> currCode){
+    int left = leftChild(root);
+    int right = rightChild(root);
+    std::cout << "MS " << arr[root].c << " " << left << ", " << right << std::endl;
+    codes[arr[root].c] = currCode;
+
+    if(left > -1){
+        std::vector<char> newChars = currCode;
+        newChars.push_back('0');
+        generateCodes(left, newChars);
+    }
+
+    if(right > -1){
+        std::vector<char> newChars = currCode;
+        newChars.push_back('1');
+        generateCodes(right, newChars);
+    }
 }

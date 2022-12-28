@@ -35,6 +35,7 @@ int main(int argc, char* argv[]){
 
     // Add frequencies to huffman tree
     for(auto it = frequencies.cbegin(); it != frequencies.cend(); ++it){
+        std::cout << it->second << std::endl;
         HeapNode node = {it->first, it->second};
         huffmanTree.insert(node);
     }
@@ -44,7 +45,18 @@ int main(int argc, char* argv[]){
         std::cout << huffmanTree.top() << std::endl;
         huffmanTree.pop();
     }
+    
+    // huffmanTree.generateCodes(0, {});
 
+    // std::cout << huffmanTree.codes.size() << std::endl;
+
+    // for(auto it = huffmanTree.codes.begin(); it != huffmanTree.codes.end(); it++){
+    //     std::cout << (*it).first << ": ";
+    //     for(auto& c : (*it).second){
+    //         std::cout << c;
+    //     }
+    //     std::cout << std::endl;
+    // }
 
     return 0;
 }

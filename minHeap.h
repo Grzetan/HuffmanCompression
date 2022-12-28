@@ -1,10 +1,12 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <unordered_map>
 
 struct HeapNode{
     char c;
     int freq;
+    bool isChar = false;
 
     bool operator>(HeapNode& node) const;
     bool operator<(HeapNode& node) const;
@@ -18,15 +20,17 @@ class MinHeap{
     std::vector<HeapNode> arr;
 
     // Return parent
-    static int parentNode(int i);
+    int parentNode(int i);
 
     // Return left child
-    static int leftChild(int i);
+    int leftChild(int i);
 
     // Return right child
-    static int rightChild(int i);
+    int rightChild(int i);
 
 public:
+    std::unordered_map<char, std::vector<char>> codes;
+
     // Traverse down
     void traverseDown(int i);
 
@@ -42,6 +46,13 @@ public:
     // Is empty
     bool empty();
 
+    // Checks if node is a leaf
+    bool isLeaf(int i);
+
     // Get top most elem
     HeapNode top();
+
+    // Generate huffman codes
+    void generateCodes(int root, std::vector<char> currCode);
+
 };
