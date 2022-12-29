@@ -23,39 +23,52 @@ int main(int argc, char* argv[]){
         throw std::runtime_error("Cannot open input file");
     }
 
-    std::map<char, int> frequencies = {};
+    std::unordered_map<char, int> frequencies = {};
     char byte;
+    int char_num = 0;
     while (input_file.get(byte)) {
         frequencies[byte]++;
+        char_num++;
     }
-
+ 
     input_file.close();
 
-    MinHeap huffmanTree;
+    MinHeap huffmanTree(frequencies.size());
 
     // Add frequencies to huffman tree
     for(auto it = frequencies.cbegin(); it != frequencies.cend(); ++it){
-        HeapNode node = {it->first, it->second};
+        MinHeapNode* node = new MinHeapNode(it->first, it->second);
         huffmanTree.insert(node);
     }
 
+    // huffmanTree.build();
 
-    while(!huffmanTree.empty()){
-        std::cout << huffmanTree.top() << std::endl;
-        huffmanTree.pop();
-    }
-    
-    // huffmanTree.generateCodes(0, {});
-
-    // std::cout << huffmanTree.codes.size() << std::endl;
-
-    // for(auto it = huffmanTree.codes.begin(); it != huffmanTree.codes.end(); it++){
-    //     std::cout << (*it).first << ": ";
-    //     for(auto& c : (*it).second){
-    //         std::cout << c;
-    //     }
-    //     std::cout << std::endl;
+    // while(huffmanTree.getSize() > 0){
+    //     MinHeapNode* node = huffmanTree.extractMin();
+    //     std::cout << node->data << ", " << node->freq << std::endl;
     // }
+
+    while(huffmanTree.getSize() != 1){
+
+        MinHeapNode* left = huffmanTree.extractMin();
+        MinHeapNode* right = huffmanTree.extractMin();
+
+        MinHeapNode* newNode = new MinHeapNode(NULL, left->freq+right->freq);
+        newNode->left = left;
+        newNode->right = right;
+        huffmanTree.insert(newNode);
+    }
+
+    MinHeapNode* root = huffmanTree.extractMin();
+    huffmanTree.generateCodes(root, {});
+
+    for(auto it = huffmanTree.codes.begin(); it != huffmanTree.codes.end(); it++){
+        std::cout << (*it).first << ": ";
+        for(auto& c : (*it).second){
+            std::cout << c;
+        }
+        std::cout << std::endl;
+    }
 
     return 0;
 }

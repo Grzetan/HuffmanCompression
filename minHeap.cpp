@@ -1,93 +1,109 @@
 #include "minHeap.h"
 
-bool HeapNode::operator<(HeapNode& node) const{
+MinHeapNode::MinHeapNode(char data_, int freq_){
+    left = right = NULL;
+    data = data_;
+    freq = freq_;
+}
+
+bool MinHeapNode::operator<(MinHeapNode& node){
     return freq < node.freq;
 }
 
-bool HeapNode::operator>(HeapNode& node) const {
+bool MinHeapNode::operator>(MinHeapNode& node){
     return freq > node.freq;
 }
 
-int MinHeap::parentNode(int i){
-    return (i - 1) / 2;
+MinHeap::MinHeap(int capacity_){
+        size = 0;
+        capacity = capacity_;
+        array = (MinHeapNode**)malloc(capacity * sizeof(struct MinHeapNode*));
+    }
+
+int MinHeap::parent(int i){
+    return (i-1) / 2;
 }
 
 int MinHeap::leftChild(int i){
-    int child = 2*i + 1;
-    int res = (child < arr.size()) ? child : -1;
-    return res;
+    return 2 * i + 1;
 }
 
 int MinHeap::rightChild(int i){
-    int child = 2*i + 2;
-    int res = (child < arr.size()) ? child : -1;
-    return res;
+    return 2 * i + 2;
 }
 
-bool MinHeap::isLeaf(int i){
-    return rightChild(i) > -1 && leftChild(i) > -1;
-}
+void MinHeap::minHeapify(int idx){
+    int smallest = idx;
+    int left = leftChild(idx);
+    int right = rightChild(idx);
 
-void MinHeap::traverseDown(int i){
-    int left = leftChild(i);
-    int right = rightChild(i);
-
-    int smallest = i;
-
-    if(left < arr.size() && arr[left] < arr[i]){
+    if (left < size && *(array[left]) < *(array[smallest]))
         smallest = left;
-    }
-    
-    if(right < arr.size() && arr[right] < arr[smallest]){
+
+    if (right < size && *(array[right]) < *(array[smallest]))
         smallest = right;
-    }
 
-    if(smallest != i){
-        std::swap(arr[i], arr[smallest]);
-        traverseDown(smallest);
-    }
-}
-
-void MinHeap::insert(HeapNode node){
-    arr.push_back(node);
-
-    int curr = arr.size() - 1;
-
-    while(curr > 0 && arr[parentNode(curr)] > arr[curr]){
-        std::swap(arr[parentNode(curr)], arr[curr]);
-        curr = parentNode(curr);
+    if (smallest != idx) {
+        std::swap(array[smallest], array[idx]);
+        minHeapify(smallest);
     }
 }
 
-void MinHeap::pop(){
-    arr[0] = arr.back();
-    arr.pop_back();
-    traverseDown(0);
+MinHeapNode* MinHeap::extractMin(){
+    MinHeapNode* temp = array[0];
+    array[0] = array[size - 1];
+
+    size--;
+    minHeapify(0);
+
+    return temp;
 }
 
-bool MinHeap::empty(){
-    return arr.size() == 0;
-}
+void MinHeap::insert(MinHeapNode* minHeapNode){
 
-HeapNode MinHeap::top(){
-    return arr[0];
-}
+    size++;
+    int i = size - 1;
 
-void MinHeap::generateCodes(int root, std::vector<char> currCode){
-    int left = leftChild(root);
-    int right = rightChild(root);
-    std::cout << "MS " << arr[root].c << " " << left << ", " << right << std::endl;
-    codes[arr[root].c] = currCode;
+    while (i && *(minHeapNode) < *(array[parent(i)])) {
 
-    if(left > -1){
-        std::vector<char> newChars = currCode;
-        newChars.push_back('0');
-        generateCodes(left, newChars);
+        array[i] = array[parent(i)];
+        i = parent(i);
     }
 
-    if(right > -1){
-        std::vector<char> newChars = currCode;
-        newChars.push_back('1');
-        generateCodes(right, newChars);
+    array[i] = minHeapNode;
+}
+
+void MinHeap::build(){
+
+    int n = size - 1;
+    int i;
+
+    for (i = (n - 1) / 2; i >= 0; --i)
+        minHeapify(i);
+}
+
+void MinHeap::add(MinHeapNode* node){
+    array[size++] = node;
+}
+
+int MinHeap::getSize(){
+    return size;
+}   
+
+void MinHeap::generateCodes(MinHeapNode* node, std::vector<char> currCode){
+    if(node->left){
+        std::vector<char> tmp = currCode;
+        tmp.push_back('0');
+        generateCodes(node->left, tmp);
+    }
+
+    if(node->right){
+        std::vector<char> tmp = currCode;
+        tmp.push_back('1');
+        generateCodes(node->right, tmp);
+    }
+
+    if(!node->left && !node->right){
+        codes[node->data] = currCode;
     }
 }

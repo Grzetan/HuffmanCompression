@@ -3,56 +3,48 @@
 #include <iostream>
 #include <unordered_map>
 
-struct HeapNode{
-    char c;
-    int freq;
-    bool isChar = false;
+typedef std::unordered_map<char, std::vector<char>> HuffmanCodes;
 
-    bool operator>(HeapNode& node) const;
-    bool operator<(HeapNode& node) const;
-    friend std::ostream &operator<<(std::ostream &output, const HeapNode &D ) { 
-        output << D.c << ": " << D.freq;
-        return output;            
-    }
+struct MinHeapNode {
+	char data;
+	int freq;
+	MinHeapNode *left, *right;
+
+    MinHeapNode(char data_, int freq_);
+
+    bool operator<(MinHeapNode& node);
+
+    bool operator>(MinHeapNode& node);
 };
 
-class MinHeap{
-    std::vector<HeapNode> arr;
+class MinHeap {
 
-    // Return parent
-    int parentNode(int i);
-
-    // Return left child
-    int leftChild(int i);
-
-    // Return right child
-    int rightChild(int i);
+	int size;
+	int capacity;
+	MinHeapNode** array;
 
 public:
-    std::unordered_map<char, std::vector<char>> codes;
+    HuffmanCodes codes;
 
-    // Traverse down
-    void traverseDown(int i);
+    MinHeap(int capacity_);
 
-    // Traverse up
-    void traverseUp(int i);
+    int parent(int i);
 
-    // Insert
-    void insert(HeapNode node);
+    int leftChild(int i);
+     
+    int rightChild(int i);
 
-    // Pop
-    void pop();
+    void minHeapify(int idx);
 
-    // Is empty
-    bool empty();
+    MinHeapNode* extractMin();
 
-    // Checks if node is a leaf
-    bool isLeaf(int i);
+    void insert(MinHeapNode* minHeapNode);
 
-    // Get top most elem
-    HeapNode top();
+    void build();
 
-    // Generate huffman codes
-    void generateCodes(int root, std::vector<char> currCode);
+    void add(MinHeapNode* node);
 
+    int getSize();
+
+    void generateCodes(MinHeapNode* node, std::vector<char> currCode);
 };
