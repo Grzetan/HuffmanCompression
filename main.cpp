@@ -73,7 +73,11 @@ int main(int argc, char* argv[]){
 
         // Save generated codes
         for(auto it = huffmanTree.codes.begin(); it != huffmanTree.codes.end(); it++){
-            dict_file << (*it).first << " ";
+            std::string key;
+            key.push_back((*it).first);
+            if(key == " ") key = "space";
+            else if(key == "\n") key = "newline";
+            dict_file << key << " ";
             for(auto& c : (*it).second){
                 dict_file << c;
             }
@@ -96,10 +100,13 @@ int main(int argc, char* argv[]){
 
         // Read dict into map
         std::map<std::string, char> huffmanCodes = {};
-        char c;
+        std::string c;
         std::string code;
         while(dict_file >> c >> code){
-            huffmanCodes[code] = c;
+            char ch = c[0];
+            if(c == "space") ch = ' ';
+            else if(c == "newline") ch = '\n';
+            huffmanCodes[code] = ch;
         }
 
         // Create huffman tree from dict
