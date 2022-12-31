@@ -95,16 +95,59 @@ int main(int argc, char* argv[]){
         }
 
         // Read dict into map
-        std::unordered_map<char, std::string> huffmanCodes = {};
+        std::map<std::string, char> huffmanCodes = {};
         char c;
         std::string code;
         while(dict_file >> c >> code){
-            huffmanCodes[c] = code;
+            huffmanCodes[code] = c;
+        }
+
+        // Create huffman tree from dict
+        MinHeapNode* root = new MinHeapNode('~', 0);
+
+        for(auto it = huffmanCodes.begin(); it != huffmanCodes.end(); it++){
+            MinHeapNode* curr = root;
+            for(auto& c : (*it).first){
+                if(c == '0'){
+                    if(curr->left){
+                        curr = curr->left;
+                        continue;
+                    }
+
+                    MinHeapNode* child = new MinHeapNode('~', 0);
+                    curr->left = child;
+                    curr = curr->left;
+                }else if(c == '1'){
+                    if(curr->right){
+                        curr = curr->right;
+                        continue;
+                    }
+
+                    MinHeapNode* child = new MinHeapNode('~', 0);
+                    curr->right = child;
+                    curr = curr->right;
+                }
+            }
+
+            curr->data = (*it).second;
         }
 
         // Decompress input file into output file
         char byte;
+        MinHeapNode* curr = root;
 
+        while (input_file.get(byte)) {
+            if(byte == '0'){
+                curr = curr->left;
+            }else{
+                curr = curr->right;
+            }
+
+            if(!curr->left && !curr->right){
+                output_file << curr->data;
+                curr = root;
+            }
+        }
     }
 
     input_file.close();
