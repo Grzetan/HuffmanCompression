@@ -15,10 +15,8 @@ bool MinHeapNode::operator>(MinHeapNode& node){
 }
 
 MinHeap::MinHeap(int capacity_){
-        size = 0;
-        capacity = capacity_;
-        array = (MinHeapNode**)malloc(capacity * sizeof(struct MinHeapNode*));
-    }
+    array = {};
+}
 
 int MinHeap::parent(int i){
     return (i-1) / 2;
@@ -37,10 +35,10 @@ void MinHeap::minHeapify(int idx){
     int left = leftChild(idx);
     int right = rightChild(idx);
 
-    if (left < size && *(array[left]) < *(array[smallest]))
+    if (left < array.size() && *(array[left]) < *(array[smallest]))
         smallest = left;
 
-    if (right < size && *(array[right]) < *(array[smallest]))
+    if (right < array.size() && *(array[right]) < *(array[smallest]))
         smallest = right;
 
     if (smallest != idx) {
@@ -51,18 +49,17 @@ void MinHeap::minHeapify(int idx){
 
 MinHeapNode* MinHeap::extractMin(){
     MinHeapNode* temp = array[0];
-    array[0] = array[size - 1];
-
-    size--;
+    array[0] = array[array.size() - 1];
+    array.pop_back();
+    
     minHeapify(0);
 
     return temp;
 }
 
 void MinHeap::insert(MinHeapNode* minHeapNode){
-
-    size++;
-    int i = size - 1;
+    array.push_back(0);
+    int i = array.size() - 1;
 
     while (i && *(minHeapNode) < *(array[parent(i)])) {
 
@@ -75,7 +72,7 @@ void MinHeap::insert(MinHeapNode* minHeapNode){
 
 void MinHeap::build(){
 
-    int n = size - 1;
+    int n = array.size() - 1;
     int i;
 
     for (i = (n - 1) / 2; i >= 0; --i)
@@ -83,11 +80,11 @@ void MinHeap::build(){
 }
 
 void MinHeap::add(MinHeapNode* node){
-    array[size++] = node;
+    array.push_back(node);
 }
 
 int MinHeap::getSize(){
-    return size;
+    return array.size();
 }   
 
 void MinHeap::generateCodes(MinHeapNode* node, std::vector<char> currCode){

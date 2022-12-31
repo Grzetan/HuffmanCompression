@@ -18,10 +18,7 @@ struct MinHeapNode {
 };
 
 class MinHeap {
-
-	int size;
-	int capacity;
-	MinHeapNode** array;
+	std::vector<MinHeapNode*> array;
 
 public:
     HuffmanCodes codes;
