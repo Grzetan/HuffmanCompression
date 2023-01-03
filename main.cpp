@@ -29,9 +29,9 @@ int main(int argc, char* argv[]){
     }
 
     std::ifstream input_file(input);
-    std::ofstream output_file(output);
+    std::fstream output_file(output, std::fstream::out);
     if (!input_file.is_open() || !output_file.is_open()) {
-        throw std::runtime_error("Cannot open input file");
+        throw std::runtime_error("Cannot open files");
     }
 
     if(compression){
@@ -87,11 +87,38 @@ int main(int argc, char* argv[]){
         // Encode input file using generated codes
         input_file.clear();
         input_file.seekg(0, input_file.beg);
+
+        output_file << 0 << 0 << 0 << 0; // Reserve space (4 bytes) for number of bits
+
+        char workingByte = 0;
+        int emptySpace = 7; // Bool is 8 bits
+        unsigned long bitNum = 0;
+
         while (input_file.get(byte)) {
             for(auto& bit : huffmanTree.codes[byte]){
-                output_file << bit;
+                if(bit == '1'){
+                    workingByte += 1;
+                }
+
+                if(!emptySpace--){
+                    emptySpace = 7;
+                    output_file << workingByte;
+                    workingByte = 0;
+                }
+
+                workingByte = workingByte << 1;
+                bitNum++;
             }
         }
+
+        // If there is still something in working byte, write it
+        if(emptySpace < 7)
+            output_file << workingByte;
+
+        // Write number of bits at the beggining of file
+        output_file.seekg(0, output_file.beg);
+        output_file << bitNum;
+
     }else{
         std::ifstream dict_file(dict);
         if (!dict_file.is_open()) {
@@ -139,20 +166,30 @@ int main(int argc, char* argv[]){
             curr->data = (*it).second;
         }
 
+        // Get number of valid bits from the beggining of the file
+        int nBits;
+        // input_file.get(nBits);
+
+        // Skip first number in file
+        input_file.seekg(4, input_file.beg);
+
         // Decompress input file into output file
         char byte;
         MinHeapNode* curr = root;
 
         while (input_file.get(byte)) {
-            if(byte == '0'){
-                curr = curr->left;
-            }else{
-                curr = curr->right;
-            }
+            for (int i = 7; i >= 0; i--){
+                char singleBit = ((byte >> i) & 1);
+                if(singleBit == 0){
+                    curr = curr->left;
+                }else{
+                    curr = curr->right;
+                }
 
-            if(!curr->left && !curr->right){
-                output_file << curr->data;
-                curr = root;
+                if(!curr->left && !curr->right){
+                    output_file << curr->data;
+                    curr = root;
+                }
             }
         }
     }
