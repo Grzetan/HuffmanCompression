@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
     }
 
     std::ifstream input_file(input);
-    std::fstream output_file(output, std::fstream::out);
+    std::ofstream output_file(output);
     if (!input_file.is_open() || !output_file.is_open()) {
         throw std::runtime_error("Cannot open files");
     }
@@ -41,6 +41,9 @@ int main(int argc, char* argv[]){
             frequencies[byte]++;
         }
     
+        // Add EOF token
+        frequencies['\0'] = 1;
+
         MinHeap huffmanTree(frequencies.size());
 
         // Add frequencies to huffman tree
@@ -77,6 +80,7 @@ int main(int argc, char* argv[]){
             key.push_back((*it).first);
             if(key == " ") key = "space";
             else if(key == "\n") key = "newline";
+            else if((*it).first == '\0') key = "eof";
             dict_file << key << " ";
             for(auto& c : (*it).second){
                 dict_file << c;
@@ -84,21 +88,23 @@ int main(int argc, char* argv[]){
             dict_file << std::endl;
         }
 
-        // Encode input file using generated codes
         input_file.clear();
         input_file.seekg(0, input_file.beg);
 
-        output_file << 0 << 0 << 0 << 0; // Reserve space (4 bytes) for number of bits
-
         char workingByte = 0;
         int emptySpace = 7; // Bool is 8 bits
-        unsigned long bitNum = 0;
 
-        while (input_file.get(byte)) {
+        while (!input_file.eof()) {
+            input_file.get(byte);
+            if(input_file.eof()){
+                byte = '\0';
+            }
+
             for(auto& bit : huffmanTree.codes[byte]){
                 if(bit == '1'){
                     workingByte += 1;
                 }
+                std::cout << bit;
 
                 if(!emptySpace--){
                     emptySpace = 7;
@@ -107,17 +113,12 @@ int main(int argc, char* argv[]){
                 }
 
                 workingByte = workingByte << 1;
-                bitNum++;
             }
         }
 
         // If there is still something in working byte, write it
         if(emptySpace < 7)
             output_file << workingByte;
-
-        // Write number of bits at the beggining of file
-        output_file.seekg(0, output_file.beg);
-        output_file << bitNum;
 
     }else{
         std::ifstream dict_file(dict);
@@ -133,6 +134,7 @@ int main(int argc, char* argv[]){
             char ch = c[0];
             if(c == "space") ch = ' ';
             else if(c == "newline") ch = '\n';
+            else if(c == "eof") ch = '\0';
             huffmanCodes[code] = ch;
         }
 
@@ -166,24 +168,28 @@ int main(int argc, char* argv[]){
             curr->data = (*it).second;
         }
 
-        // Get number of valid bits from the beggining of the file
-        int nBits;
-        // input_file.get(nBits);
-
-        // Skip first number in file
-        input_file.seekg(4, input_file.beg);
-
         // Decompress input file into output file
         char byte;
         MinHeapNode* curr = root;
 
-        while (input_file.get(byte)) {
+        bool eof = false;
+
+        while (input_file.get(byte) && !eof) {
             for (int i = 7; i >= 0; i--){
                 char singleBit = ((byte >> i) & 1);
+
+                std::cout << (singleBit == 1);
+
                 if(singleBit == 0){
                     curr = curr->left;
                 }else{
                     curr = curr->right;
+                }
+
+                if(curr->data == '\0'){
+                    std::cout << "XD";
+                    eof = true;
+                    break;
                 }
 
                 if(!curr->left && !curr->right){
