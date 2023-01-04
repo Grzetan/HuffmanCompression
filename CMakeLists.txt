@@ -32,6 +32,8 @@ set(SOURCE_FILES
         ${PATH}/minHeap.h
         ${PATH}/minHeap.cpp
         ${PATH}/main.cpp
+        ${PATH}/utils.h
+        ${PATH}/utils.cpp
         )
 
 add_executable(main ${PATH}/main.cpp ${SOURCE_FILES})
