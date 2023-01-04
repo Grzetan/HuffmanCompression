@@ -101,25 +101,27 @@ int main(int argc, char* argv[]){
             }
 
             for(auto& bit : huffmanTree.codes[byte]){
+                workingByte = workingByte << 1;
+
                 if(bit == '1'){
                     workingByte += 1;
                 }
-                std::cout << bit;
 
                 if(!emptySpace--){
                     emptySpace = 7;
                     output_file << workingByte;
                     workingByte = 0;
                 }
-
-                workingByte = workingByte << 1;
             }
         }
 
-        // If there is still something in working byte, write it
-        if(emptySpace < 7)
+        // If there is still something in working byte, move it and write it
+        if(emptySpace < 7){
+            for(int i=0; i<=emptySpace; i++){
+                workingByte = workingByte << 1;
+            }
             output_file << workingByte;
-
+        }
     }else{
         std::ifstream dict_file(dict);
         if (!dict_file.is_open()) {
@@ -178,8 +180,6 @@ int main(int argc, char* argv[]){
             for (int i = 7; i >= 0; i--){
                 char singleBit = ((byte >> i) & 1);
 
-                std::cout << (singleBit == 1);
-
                 if(singleBit == 0){
                     curr = curr->left;
                 }else{
@@ -187,7 +187,6 @@ int main(int argc, char* argv[]){
                 }
 
                 if(curr->data == '\0'){
-                    std::cout << "XD";
                     eof = true;
                     break;
                 }
