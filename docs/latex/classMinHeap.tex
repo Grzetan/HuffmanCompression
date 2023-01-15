@@ -1,0 +1,236 @@
+\hypertarget{classMinHeap}{}\doxysection{Min\+Heap Class Reference}
+\label{classMinHeap}\index{MinHeap@{MinHeap}}
+
+
+Class with implementation of min heap.  
+
+
+
+
+{\ttfamily \#include $<$min\+Heap.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMinHeap_a0bbbfd27c0036c435afaeca45618600f}{Min\+Heap}} (int capacity\+\_\+)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classMinHeap}{Min\+Heap}} class. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classMinHeap_a0e893f9deb4be4cf4f9990e736483e81}{parent}} (int i)
+\begin{DoxyCompactList}\small\item\em Calculates index of parent node. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classMinHeap_a94fd4a65c3243ee8164f0c0bfd9d60f4}{left\+Child}} (int i)
+\begin{DoxyCompactList}\small\item\em Calculates index of left child. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classMinHeap_a0056cb56dcf4cf78cf7f46037a7c0221}{right\+Child}} (int i)
+\begin{DoxyCompactList}\small\item\em Calculates index of right child. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMinHeap_aa784921e0025376c94ff50be14990aa4}{min\+Heapify}} (int idx)
+\begin{DoxyCompactList}\small\item\em Ensures min heap properties for every node above passed index. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$ \mbox{\hyperlink{classMinHeap_ad981543ffa8ee46da4a57b386a39c968}{extract\+Min}} ()
+\begin{DoxyCompactList}\small\item\em Gets root of min heap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMinHeap_a55633502fa1eadc340a7628ebcf22365}{insert}} (\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$min\+Heap\+Node)
+\begin{DoxyCompactList}\small\item\em Inserts new node to min heap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMinHeap_a711f18baf54e293983a9ef106982eb2c}{build}} ()
+\begin{DoxyCompactList}\small\item\em Builds min heap from private array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMinHeap_ab602a84fa61b47c96a6be85017d097f7}{add}} (\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$node)
+\begin{DoxyCompactList}\small\item\em Adds new node to private array (it doesn\textquotesingle{}t build min heap). \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classMinHeap_a6bf67fb0109c5cecdac503982661caac}{get\+Size}} ()
+\begin{DoxyCompactList}\small\item\em Returns size of min heap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMinHeap_a2ba4ecb897846c3486d597c985511296}{generate\+Codes}} (\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$node, std\+::vector$<$ char $>$ curr\+Code)
+\begin{DoxyCompactList}\small\item\em Generates huffman codes from min heap with characters to inside variable huffman\+Codes which can be later accessed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{minHeap_8h_a718236e241e27eac972a624113931cb3}{Huffman\+Codes}} \mbox{\hyperlink{classMinHeap_aba53b842326c6d2725f218628f690cd8}{codes}}
+\begin{DoxyCompactList}\small\item\em Map containing codes for every character. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class with implementation of min heap. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMinHeap_a0bbbfd27c0036c435afaeca45618600f}\label{classMinHeap_a0bbbfd27c0036c435afaeca45618600f}} 
+\index{MinHeap@{MinHeap}!MinHeap@{MinHeap}}
+\index{MinHeap@{MinHeap}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{MinHeap()}{MinHeap()}}
+{\footnotesize\ttfamily Min\+Heap\+::\+Min\+Heap (\begin{DoxyParamCaption}\item[{int}]{capacity\+\_\+ }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{classMinHeap}{Min\+Heap}} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em capacity\+\_\+} & Maximum number of elements in min heap. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMinHeap_ab602a84fa61b47c96a6be85017d097f7}\label{classMinHeap_ab602a84fa61b47c96a6be85017d097f7}} 
+\index{MinHeap@{MinHeap}!add@{add}}
+\index{add@{add}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily void Min\+Heap\+::add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Adds new node to private array (it doesn\textquotesingle{}t build min heap). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inode} & Input node. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMinHeap_a711f18baf54e293983a9ef106982eb2c}\label{classMinHeap_a711f18baf54e293983a9ef106982eb2c}} 
+\index{MinHeap@{MinHeap}!build@{build}}
+\index{build@{build}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{build()}{build()}}
+{\footnotesize\ttfamily void Min\+Heap\+::build (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Builds min heap from private array. 
+
+\mbox{\Hypertarget{classMinHeap_ad981543ffa8ee46da4a57b386a39c968}\label{classMinHeap_ad981543ffa8ee46da4a57b386a39c968}} 
+\index{MinHeap@{MinHeap}!extractMin@{extractMin}}
+\index{extractMin@{extractMin}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{extractMin()}{extractMin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$ Min\+Heap\+::extract\+Min (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets root of min heap. 
+
+\begin{DoxyReturn}{Returns}
+Return pointer to root node of min heap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMinHeap_a2ba4ecb897846c3486d597c985511296}\label{classMinHeap_a2ba4ecb897846c3486d597c985511296}} 
+\index{MinHeap@{MinHeap}!generateCodes@{generateCodes}}
+\index{generateCodes@{generateCodes}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{generateCodes()}{generateCodes()}}
+{\footnotesize\ttfamily void Min\+Heap\+::generate\+Codes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$}]{node,  }\item[{std\+::vector$<$ char $>$}]{curr\+Code }\end{DoxyParamCaption})}
+
+
+
+Generates huffman codes from min heap with characters to inside variable huffman\+Codes which can be later accessed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & Root node of huffman tree. \\
+\hline
+{\em curr\+Code} & Empty vector for chars. It is later recursively used to generate codes. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMinHeap_a6bf67fb0109c5cecdac503982661caac}\label{classMinHeap_a6bf67fb0109c5cecdac503982661caac}} 
+\index{MinHeap@{MinHeap}!getSize@{getSize}}
+\index{getSize@{getSize}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily int Min\+Heap\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns size of min heap. 
+
+\begin{DoxyReturn}{Returns}
+Size of min heap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMinHeap_a55633502fa1eadc340a7628ebcf22365}\label{classMinHeap_a55633502fa1eadc340a7628ebcf22365}} 
+\index{MinHeap@{MinHeap}!insert@{insert}}
+\index{insert@{insert}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily void Min\+Heap\+::insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$}]{min\+Heap\+Node }\end{DoxyParamCaption})}
+
+
+
+Inserts new node to min heap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em min\+Heap\+Node} & Input node. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMinHeap_a94fd4a65c3243ee8164f0c0bfd9d60f4}\label{classMinHeap_a94fd4a65c3243ee8164f0c0bfd9d60f4}} 
+\index{MinHeap@{MinHeap}!leftChild@{leftChild}}
+\index{leftChild@{leftChild}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{leftChild()}{leftChild()}}
+{\footnotesize\ttfamily int Min\+Heap\+::left\+Child (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})}
+
+
+
+Calculates index of left child. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & Input node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index in array of left node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMinHeap_aa784921e0025376c94ff50be14990aa4}\label{classMinHeap_aa784921e0025376c94ff50be14990aa4}} 
+\index{MinHeap@{MinHeap}!minHeapify@{minHeapify}}
+\index{minHeapify@{minHeapify}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{minHeapify()}{minHeapify()}}
+{\footnotesize\ttfamily void Min\+Heap\+::min\+Heapify (\begin{DoxyParamCaption}\item[{int}]{idx }\end{DoxyParamCaption})}
+
+
+
+Ensures min heap properties for every node above passed index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & Index of input node. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMinHeap_a0e893f9deb4be4cf4f9990e736483e81}\label{classMinHeap_a0e893f9deb4be4cf4f9990e736483e81}} 
+\index{MinHeap@{MinHeap}!parent@{parent}}
+\index{parent@{parent}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{parent()}{parent()}}
+{\footnotesize\ttfamily int Min\+Heap\+::parent (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})}
+
+
+
+Calculates index of parent node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & Input node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index in array of parent node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMinHeap_a0056cb56dcf4cf78cf7f46037a7c0221}\label{classMinHeap_a0056cb56dcf4cf78cf7f46037a7c0221}} 
+\index{MinHeap@{MinHeap}!rightChild@{rightChild}}
+\index{rightChild@{rightChild}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{rightChild()}{rightChild()}}
+{\footnotesize\ttfamily int Min\+Heap\+::right\+Child (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})}
+
+
+
+Calculates index of right child. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & Input node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index in array of right node. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classMinHeap_aba53b842326c6d2725f218628f690cd8}\label{classMinHeap_aba53b842326c6d2725f218628f690cd8}} 
+\index{MinHeap@{MinHeap}!codes@{codes}}
+\index{codes@{codes}!MinHeap@{MinHeap}}
+\doxysubsubsection{\texorpdfstring{codes}{codes}}
+{\footnotesize\ttfamily \mbox{\hyperlink{minHeap_8h_a718236e241e27eac972a624113931cb3}{Huffman\+Codes}} Min\+Heap\+::codes}
+
+
+
+Map containing codes for every character. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{minHeap_8h}{min\+Heap.\+h}}\item 
+\mbox{\hyperlink{minHeap_8cpp}{min\+Heap.\+cpp}}\end{DoxyCompactItemize}

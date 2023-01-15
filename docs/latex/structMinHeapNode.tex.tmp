@@ -1,0 +1,51 @@
+\hypertarget{structMinHeapNode}{}\doxysection{Min\+Heap\+Node Struct Reference}
+\label{structMinHeapNode}\index{MinHeapNode@{MinHeapNode}}
+
+
+Struct containing necessary data for min heap node.  
+
+
+
+
+{\ttfamily \#include $<$min\+Heap.\+h$>$}
+
+
+
+Collaboration diagram for Min\+Heap\+Node\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structMinHeapNode_a938b72ed9253eb9de3ff9968a18d42ec}\label{structMinHeapNode_a938b72ed9253eb9de3ff9968a18d42ec}} 
+{\bfseries Min\+Heap\+Node} (char data\+\_\+, int freq\+\_\+)
+\item 
+\mbox{\Hypertarget{structMinHeapNode_a3d816e0aa18be2573c2ab7e7f86f2c5c}\label{structMinHeapNode_a3d816e0aa18be2573c2ab7e7f86f2c5c}} 
+bool {\bfseries operator$<$} (\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} \&node)
+\item 
+\mbox{\Hypertarget{structMinHeapNode_aca9e577b258be56cc8863b72bd038d2c}\label{structMinHeapNode_aca9e577b258be56cc8863b72bd038d2c}} 
+bool {\bfseries operator$>$} (\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} \&node)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structMinHeapNode_a3d422a54a6e8f8ebc7e386125a09d8e8}\label{structMinHeapNode_a3d422a54a6e8f8ebc7e386125a09d8e8}} 
+char {\bfseries data}
+\item 
+\mbox{\Hypertarget{structMinHeapNode_a4e0b2591cd0a2a1e8c10a1c16c6f1127}\label{structMinHeapNode_a4e0b2591cd0a2a1e8c10a1c16c6f1127}} 
+int {\bfseries freq}
+\item 
+\mbox{\Hypertarget{structMinHeapNode_ad06549be842d9a2cacdb3e55b019e68c}\label{structMinHeapNode_ad06549be842d9a2cacdb3e55b019e68c}} 
+\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$ {\bfseries left}
+\item 
+\mbox{\Hypertarget{structMinHeapNode_a6df054c3211ae8a8ec15a21e7d18343a}\label{structMinHeapNode_a6df054c3211ae8a8ec15a21e7d18343a}} 
+\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$ {\bfseries right}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct containing necessary data for min heap node. 
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+min\+Heap.\+h\item 
+min\+Heap.\+cpp\end{DoxyCompactItemize}

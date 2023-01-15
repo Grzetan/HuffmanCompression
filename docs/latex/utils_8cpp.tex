@@ -1,0 +1,134 @@
+\hypertarget{utils_8cpp}{}\doxysection{utils.\+cpp File Reference}
+\label{utils_8cpp}\index{utils.cpp@{utils.cpp}}
+{\ttfamily \#include \char`\"{}utils.\+h\char`\"{}}\newline
+Include dependency graph for utils.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structArgs}{Args}} \mbox{\hyperlink{utils_8cpp_a62eab0116f1f4eace14dd7c5700ffc23}{parse\+Args}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Parse arguments from commend line. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classMinHeap}{Min\+Heap}} $\ast$ \mbox{\hyperlink{utils_8cpp_a50b717b6213c4b094859edb406903e2f}{build\+Huffman\+Tree\+From\+Text}} (std\+::ifstream \&input\+\_\+file)
+\begin{DoxyCompactList}\small\item\em First, it builds priority queue from characters and their frequencies, than huffman tree is build. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{utils_8cpp_a61e9e87f8a3a620c301892f652b6238b}{write\+Dict\+File}} (std\+::ofstream \&dict\+\_\+file, \mbox{\hyperlink{classMinHeap}{Min\+Heap}} $\ast$huffman\+Tree)
+\begin{DoxyCompactList}\small\item\em Writes file with pairs of characters from input file and their code in huffman tree. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{utils_8cpp_a89a23c9065e4286655b18e7e09f0486d}{compress}} (std\+::ifstream \&input\+\_\+file, std\+::ofstream \&output\+\_\+file, \mbox{\hyperlink{classMinHeap}{Min\+Heap}} $\ast$huffman\+Tree)
+\begin{DoxyCompactList}\small\item\em Writes compressed input file. It uses bit operators so compressed codes use smallest possible amount of memory. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$ \mbox{\hyperlink{utils_8cpp_ae058314e951c59b8977786a4752c6a79}{build\+Huffman\+Tree\+From\+Dict}} (std\+::ifstream \&dict\+\_\+file)
+\begin{DoxyCompactList}\small\item\em Builds huffman tree from input dictionary file (created when compressing). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{utils_8cpp_a7f3db345dd4992bd03f2f4b1db57a06e}{decompress}} (std\+::ifstream \&input\+\_\+file, std\+::ofstream \&output\+\_\+file, \mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$root)
+\begin{DoxyCompactList}\small\item\em Decompresses input file to output file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{utils_8cpp_ae058314e951c59b8977786a4752c6a79}\label{utils_8cpp_ae058314e951c59b8977786a4752c6a79}} 
+\index{utils.cpp@{utils.cpp}!buildHuffmanTreeFromDict@{buildHuffmanTreeFromDict}}
+\index{buildHuffmanTreeFromDict@{buildHuffmanTreeFromDict}!utils.cpp@{utils.cpp}}
+\doxysubsubsection{\texorpdfstring{buildHuffmanTreeFromDict()}{buildHuffmanTreeFromDict()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}}$\ast$ build\+Huffman\+Tree\+From\+Dict (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{dict\+\_\+file }\end{DoxyParamCaption})}
+
+
+
+Builds huffman tree from input dictionary file (created when compressing). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dict\+\_\+file} & File stream (ofstream) with opened, ready to write, dictionary file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a pointer to root node of huffman tree. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{utils_8cpp_a50b717b6213c4b094859edb406903e2f}\label{utils_8cpp_a50b717b6213c4b094859edb406903e2f}} 
+\index{utils.cpp@{utils.cpp}!buildHuffmanTreeFromText@{buildHuffmanTreeFromText}}
+\index{buildHuffmanTreeFromText@{buildHuffmanTreeFromText}!utils.cpp@{utils.cpp}}
+\doxysubsubsection{\texorpdfstring{buildHuffmanTreeFromText()}{buildHuffmanTreeFromText()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMinHeap}{Min\+Heap}}$\ast$ build\+Huffman\+Tree\+From\+Text (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{input\+\_\+file }\end{DoxyParamCaption})}
+
+
+
+First, it builds priority queue from characters and their frequencies, than huffman tree is build. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+file} & File stream (ifstream) with opened file we want to compress. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a pointer to root node of huffman tree. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{utils_8cpp_a89a23c9065e4286655b18e7e09f0486d}\label{utils_8cpp_a89a23c9065e4286655b18e7e09f0486d}} 
+\index{utils.cpp@{utils.cpp}!compress@{compress}}
+\index{compress@{compress}!utils.cpp@{utils.cpp}}
+\doxysubsubsection{\texorpdfstring{compress()}{compress()}}
+{\footnotesize\ttfamily void compress (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{input\+\_\+file,  }\item[{std\+::ofstream \&}]{output\+\_\+file,  }\item[{\mbox{\hyperlink{classMinHeap}{Min\+Heap}} $\ast$}]{huffman\+Tree }\end{DoxyParamCaption})}
+
+
+
+Writes compressed input file. It uses bit operators so compressed codes use smallest possible amount of memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+file} & File stream (ifstream) with opened file we want to compress. \\
+\hline
+{\em output\+\_\+file} & File stream (ofstream) with opened file in which we want to write compressed text. \\
+\hline
+{\em huffman\+Tree} & Pointer to the root of huffman tree. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{utils_8cpp_a7f3db345dd4992bd03f2f4b1db57a06e}\label{utils_8cpp_a7f3db345dd4992bd03f2f4b1db57a06e}} 
+\index{utils.cpp@{utils.cpp}!decompress@{decompress}}
+\index{decompress@{decompress}!utils.cpp@{utils.cpp}}
+\doxysubsubsection{\texorpdfstring{decompress()}{decompress()}}
+{\footnotesize\ttfamily void decompress (\begin{DoxyParamCaption}\item[{std\+::ifstream \&}]{input\+\_\+file,  }\item[{std\+::ofstream \&}]{output\+\_\+file,  }\item[{\mbox{\hyperlink{structMinHeapNode}{Min\+Heap\+Node}} $\ast$}]{root }\end{DoxyParamCaption})}
+
+
+
+Decompresses input file to output file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+file} & File stream (ifstream) with opened file with compressed text. \\
+\hline
+{\em output\+\_\+file} & File stream (ofstream) with opened file in which we want to write decompressed text. \\
+\hline
+{\em root} & Pointer to the root of huffman tree. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{utils_8cpp_a62eab0116f1f4eace14dd7c5700ffc23}\label{utils_8cpp_a62eab0116f1f4eace14dd7c5700ffc23}} 
+\index{utils.cpp@{utils.cpp}!parseArgs@{parseArgs}}
+\index{parseArgs@{parseArgs}!utils.cpp@{utils.cpp}}
+\doxysubsubsection{\texorpdfstring{parseArgs()}{parseArgs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structArgs}{Args}} parse\+Args (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Parse arguments from commend line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of parameters. It should have a length equal to length of second parameter \\
+\hline
+{\em argv} & C-\/type array of arguments passed through command line. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns custom struct containing parsed arguments. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{utils_8cpp_a61e9e87f8a3a620c301892f652b6238b}\label{utils_8cpp_a61e9e87f8a3a620c301892f652b6238b}} 
+\index{utils.cpp@{utils.cpp}!writeDictFile@{writeDictFile}}
+\index{writeDictFile@{writeDictFile}!utils.cpp@{utils.cpp}}
+\doxysubsubsection{\texorpdfstring{writeDictFile()}{writeDictFile()}}
+{\footnotesize\ttfamily void write\+Dict\+File (\begin{DoxyParamCaption}\item[{std\+::ofstream \&}]{dict\+\_\+file,  }\item[{\mbox{\hyperlink{classMinHeap}{Min\+Heap}} $\ast$}]{huffman\+Tree }\end{DoxyParamCaption})}
+
+
+
+Writes file with pairs of characters from input file and their code in huffman tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dict\+\_\+file} & File stream (ofstream) with opened, ready to write, dictionary file. \\
+\hline
+{\em huffman\+Tree} & Pointer to the root of huffman tree. \\
+\hline
+\end{DoxyParams}
