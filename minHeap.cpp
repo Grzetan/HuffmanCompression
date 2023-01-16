@@ -6,6 +6,12 @@ MinHeapNode::MinHeapNode(char data_, int freq_){
     freq = freq_;
 }
 
+MinHeapNode::~MinHeapNode(){
+    delete left;
+    delete right;
+}
+
+
 bool MinHeapNode::operator<(MinHeapNode& node){
     return freq < node.freq;
 }
@@ -16,6 +22,10 @@ bool MinHeapNode::operator>(MinHeapNode& node){
 
 MinHeap::MinHeap(int capacity_){
     array = {};
+}
+
+MinHeap::~MinHeap(){
+    delete array[0];
 }
 
 int MinHeap::parent(int i){

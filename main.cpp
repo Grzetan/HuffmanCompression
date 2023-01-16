@@ -21,6 +21,8 @@ int main(int argc, char* argv[]){
         writeDictFile(dict_file, huffmanTree);
 
         compress(input_file, output_file, huffmanTree);
+    
+        delete huffmanTree;
     }else{
         std::ifstream dict_file(args.dict);
         if (!dict_file.is_open()) {
@@ -30,6 +32,8 @@ int main(int argc, char* argv[]){
         MinHeapNode* root = buildHuffmanTreeFromDict(dict_file);
 
         decompress(input_file, output_file, root);
+
+        delete root;
     }
 
     input_file.close();

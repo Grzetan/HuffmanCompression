@@ -15,6 +15,8 @@ struct MinHeapNode {
 
     MinHeapNode(char data_, int freq_);
 
+    ~MinHeapNode();
+
     bool operator<(MinHeapNode& node);
 
     bool operator>(MinHeapNode& node);
@@ -37,6 +39,8 @@ public:
      * @param capacity_ Maximum number of elements in min heap.
      */
     MinHeap(int capacity_);
+
+    ~MinHeap();
 
     /**
      * @brief Calculates index of parent node.
